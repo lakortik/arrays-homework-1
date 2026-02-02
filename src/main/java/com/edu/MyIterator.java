@@ -1,29 +1,28 @@
 package com.edu;
 
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
-public class MyIterator<E> implements Iterator<E> {
+public class MyIterator<Object> implements Iterator<Object> {
 
-    ArrayList<E> listFromParent = new ArrayList<E>();
+    Object[] listFromParent;
     Integer currentIndex = 0;
     public MyIterator(){
 
     }
 
-    public MyIterator(ArrayList<E> result) {
+    public MyIterator(Object[] result) {
 
         listFromParent = result;
     }
 
     @Override
     public boolean hasNext() {
-        return listFromParent.size()>=currentIndex+1;
+        return listFromParent.length>=currentIndex+1;
     }
 
     @Override
-    public E next() {
-        return listFromParent.get(currentIndex++);
+    public Object next() {
+        return listFromParent[currentIndex++];
     }
 }

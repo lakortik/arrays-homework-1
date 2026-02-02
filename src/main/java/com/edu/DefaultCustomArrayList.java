@@ -1,58 +1,92 @@
 package com.edu;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 
 public class DefaultCustomArrayList<E> implements CustomArrayList<E> {
-    ArrayList<E> result = new ArrayList<E>();
-    MyIterator<E> iterator = new MyIterator<E>(result);
+    Object[] result = new Object[0];
+    MyIterator<Object> iterator = new MyIterator<Object>(result);
 
     public DefaultCustomArrayList() {
     }
 
     @Override
     public boolean add(E element) {
- int q = 1234;
- q= q+2;
-        return result.add(element);
+
+        Object[] newResult = new Object[result.length + 1];
+        for (int i = 0; i < result.length; i++) {
+            if (result[i] != element) {
+                newResult[i] = result[i];
+            }
+        }
+        newResult[result.length] = element;
+        result = newResult;
+        iterator = new MyIterator<Object>(result);
+
+        return true;
     }
 
     @Override
     public boolean remove(E element) {
-        return result.remove(element);
+        if (result != null && result.length != 0) {
+            Object[] newResult = new Object[result.length - 1];
+            for (int i = 0; i < result.length-1; i++) {
+                if (result[i] != element) {
+                    newResult[i] = result[i];
+                }
+            }
+            result = newResult;
+        }
+        iterator = new MyIterator<Object>(result);
+
+        return  true;
     }
 
     private void remove(int index) {
+        if (result != null && result.length != 0) {
+            Object[] newResult = new Object[result.length - 1];
+            for (int i = 0; i < result.length; i++) {
+                if (i != index) {
+                    newResult[i] = result[i];
+                }
+            }
+            result = newResult;
+        }
     }
 
     @Override
-    public E get(int index) {
-        return result.get(index);
+    public Object get(int index) {
+        return result[index];
     }
 
     @Override
     public int size() {
-        return result.size();
+        return result.length;
     }
 
     @Override
     public boolean isEmpty() {
-        return result.size()==0;
+        return result == null || result.length == 0;
     }
 
     @Override
     public void clear() {
-        result = new ArrayList<>();
+        result = new Object[0];
     }
 
     @Override
     public boolean contains(E element) {
-        return result.contains(element);
+        boolean res = false;
+        for (Object o : result) {
+            if (element == o) {
+                res = true;
+            }
+        }
+        return res;
     }
 
     @Override
     public Iterator<E> iterator() {
-        return iterator;
+        return (Iterator<E>) iterator;
     }
 }

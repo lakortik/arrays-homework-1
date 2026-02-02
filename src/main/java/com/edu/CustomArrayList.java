@@ -4,7 +4,7 @@ import java.util.Iterator;
 public interface CustomArrayList<E> extends Iterable<E> {
     boolean add(E element);
     boolean remove(E element);
-    E get(int index);
+    Object get(int index);
     int size();
     boolean isEmpty();
     void clear();
